@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Email Reports - TravelScope</title>
+
+  <!-- Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+  <script src="script.js"></script>
+
+  <style>
+    h1{
+      text-align:left;
+        margin:20px;
+        color:blue;
+    }
+.report-container{
+
+width:500px;
+
+margin:auto;
+
+margin-top:100px;
+
+padding:40px;
+
+background:#f1f1f1;
+
+border-radius:20px;
+
+
+box-shadow:0 10px 30px rgba(6, 11, 135, 0.2);
+
+text-align:center;
+
+}
+
+.report-container input,
+.report-container select{
+
+width:100%;
+
+padding:10px;
+
+margin:10px 0;
+
+border:1px solid #ccc;
+
+border-radius:5px;
+
+}
+.auth-container {
+      min-height: calc(100vh - 80px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+
+
+    .auth-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 42px;
+      width: 100%;
+      max-width: 460px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(14px);
+      animation: fadeUp 0.8s ease;
+    }
+
+    .auth-header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    .auth-header h2 {
+      margin: 0 0 8px;
+      font-size: 1.8rem;
+      background: linear-gradient(135deg, var(--text), var(--primary-2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .auth-header p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+.report-container button{
+
+background: rgb(54, 54, 161);
+
+color:white;
+
+border:none;
+
+padding:10px 20px;
+
+border-radius:10px;
+
+cursor:pointer;
+
+}
+</style>
+  <div class="floating-bg"></div>
+
+  <nav>
+    <div class="brand">
+      <div class="brand-logo">T</div>
+      <h1>TravelScope</h1>
+    </div>
+
+    <div class="nav-links" id="authArea">
+      <a href="index.html">Home</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="email-reports.html" class="active">Email Reports</a>
+      <button onclick="window.location.href='signup.html'">Sign Up</button>
+      <button onclick="window.location.href='login.html'">Login</button>
+      <button onclick="toggleMode()">🌙 / ☀️</button>
+    </div>
+  </nav>
+
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+
+
+</head>
+
+<body>
+  <main style="min-height: calc(100vh - 80px); padding: 60px 20px; display: flex; align-items: center; justify-content: center;">
+    <div class="report-container" style="width: 90%; max-width: 500px; background: var(--card, #f1f1f1); border-radius: 20px; box-shadow: var(--shadow, 0 10px 30px rgba(6,11,135,0.2)); padding: 40px; text-align: center;">
+      <h2 style="margin-top: 0;"><i class="fas fa-envelope" style="color: var(--primary, #0b84ff);"></i> Tourism Email Reports</h2>
+      <p>Get tourism insights directly to your email.</p>
+      <input type="email" id="email" placeholder="Enter your email" style="width:100%; padding:14px; margin:10px 0; border:1px solid var(--border, #ccc); border-radius:8px;">
+      <select id="reportType" style="width:100%; padding:14px; margin:10px 0; border:1px solid var(--border, #ccc); border-radius:8px;">
+        <option value="global">Global Tourism Report</option>
+        <option value="country">Country Tourism Analysis</option>
+        <option value="trend">Tourism Trend Analysis</option>
+      </select>
+      <button onclick="sendReport()" style="background: linear-gradient(135deg, var(--primary, rgb(54,54,161)), var(--primary-2)); color:white; border:none; padding:14px 24px; border-radius:10px; cursor:pointer; font-weight:600;">Send Report</button>
+      <p id="status" style="margin-top:15px; font-weight:500;"></p>
+    </div>
+  </main>
+<script>
+    (function(){
+emailjs.init("s9y69osyOfZkKZTn2");
+})();
+
+
+function sendReport(){
+  const email = document.getElementById("email").value;
+  const reportType = document.getElementById("reportType").value;
+  const status = document.getElementById("status");
+
+  let reportContent = "";
+  if(reportType === "global"){
+    reportContent = "France is the most visited country. The USA generates the highest tourism revenue.";
+  } else if(reportType === "country"){
+    reportContent = "Spain and France dominate tourism arrivals in Europe.";
+  } else {
+    reportContent = "Global tourism is recovering rapidly after the pandemic.";
+  }
+
+  emailjs.send("service_w8v1drk", "template_kjbicge", {
+    user_email: email,
+    report_message: reportContent
+  }).then(function(){
+    status.innerText = "✅ Report sent successfully!";
+    status.style.color = "green";
+  }).catch(function(error){
+    console.log(error);
+    status.innerText = "❌ Failed to send report.";
+    status.style.color = "red";
+  });
+}
+
+// Auth and profile handling (same as index.html)
+document.addEventListener("DOMContentLoaded", function(){
+  const authArea = document.getElementById("authArea");
+  if(localStorage.getItem("isLoggedIn") === "true"){
+    const user = JSON.parse(localStorage.getItem("travelscope_user"));
+    authArea.innerHTML = `
+      <a href="index.html">Home</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="email-reports.html" class="active">Email Reports</a>
+      <button onclick="toggleMode()">🌙 / ☀️</button>
+      <div class="profile-wrapper">
+        <i class="fa fa-user-circle profile-icon" id="profileIcon"></i>
+        <div id="profileDetails" class="profile-details">
+          <p><strong>Name:</strong> ${user.name}</p>
+          <p><strong>Email:</strong> ${user.email}</p>
+          <p><strong>Contact:</strong> ${user.contact}</p>
+          <button onclick="logout()">Logout</button>
+        </div>
+      </div>
+    `;
+
+    const profileIcon = document.getElementById("profileIcon");
+    const profileDetails = document.getElementById("profileDetails");
+    if (profileDetails) profileDetails.style.display = "none";
+
+    if (profileIcon) {
+      profileIcon.addEventListener("click", function(){
+        if (profileDetails.style.display === "none") {
+          profileDetails.style.display = "block";
+        } else {
+          profileDetails.style.display = "none";
+        }
+      });
+    }
+  }
+});
+
+function logout(){
+  localStorage.removeItem("isLoggedIn");
+  window.location.href = "index.html";
+}
+
+</script>
+
+</body>
+</html>

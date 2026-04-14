@@ -1,0 +1,259 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TravelScope - Global Travel & Tourism</title>
+
+  <!-- Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome (IMPORTANT for social icons) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <!-- External CSS -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div class="floating-bg"></div>
+
+  <nav>
+    <div class="brand">
+      <div class="brand-logo">T</div>
+      <h1>TravelScope</h1>
+    </div>
+
+    <div class="nav-links" id="authArea">
+      <a href="index.html">Home</a>
+
+<a href="dashboard.html">Dashboard</a>
+
+<a href="email-reports.html">Email Reports</a>
+
+
+<button onclick="window.location.href='signup.html'">Sign Up</button>
+
+<button onclick="window.location.href='login.html'">Login</button>
+
+<button onclick="toggleMode()">🌙 / ☀️</button>
+
+  </nav>
+
+  <section class="hero">
+    <div class="hero-content">
+      <div class="badge">Smart Global Travel & Tourism Platform</div>
+
+      <h2>
+        Explore the World with a Premium Digital Travel Experience
+      </h2>
+
+      <p>
+        TravelScope helps travelers, agencies, and tourism businesses discover destinations,
+        monitor global travel trends, unlock AI-powered insights, and receive smart travel
+        reports in one modern platform.
+      </p>
+
+      <div class="hero-actions">
+<button class="primary-btn" onclick="window.location.href='signup.html'">Get Started</button>
+      
+        <button class="secondary-btn">Discover More</button>
+      </div>
+
+      <div class="hero-stats">
+        <div class="stat-box">
+          <h3>120+</h3>
+          <p>Global Destinations Covered</p>
+        </div>
+        <div class="stat-box">
+          <h3>24/7</h3>
+          <p>AI Travel Insight Access</p>
+        </div>
+        <div class="stat-box">
+          <h3>10K+</h3>
+          <p>Travel Reports Delivered</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section reveal">
+    <h2>Our Services</h2>
+
+    <p class="section-intro">
+      TravelScope combines tourism intelligence, destination discovery, and premium digital tools
+      to create a world-class platform for smarter travel planning.
+    </p>
+
+    <div class="cards">
+      <div class="card">
+        <div class="card-icon">🌍</div>
+        <h3>Global Destinations</h3>
+        <p>Explore beautiful places across the world with destination highlights and guidance.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">🤖</div>
+        <h3>Chatbot Assistance</h3>
+        <p>Get instant support and travel recommendations through our intelligent chatbot.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">📧</div>
+        <h3>AI Travel Insights</h3>
+        <p>Receive curated tourism updates directly by AI.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">📊</div>
+        <h3>Smart Dashboard</h3>
+        <p>Track travel data and tourism performance easily.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section reveal">
+    <h2>About TravelScope</h2>
+    <div class="about-box">
+      TravelScope is a next-generation global travel and tourism platform built
+      to simplify travel discovery and empower smarter decisions.
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-container">
+      <div class="footer-brand">
+        <h3>TravelScope</h3>
+        <p>
+          TravelScope is a modern global travel and tourism platform that helps
+          users discover destinations and access AI-powered insights.
+        </p>
+      </div>
+
+      <div class="footer-contact">
+        <h4>Contact Details</h4>
+        <p><strong>Message:</strong> support@travelscope.com</p>
+        <p><strong>Contact No:</strong> +1 (555) 123-4567</p>
+        <p><strong>Location:</strong> Bangalore, India</p>
+      </div>
+
+      <div class="footer-social">
+            <h4>Connect</h4>
+            <div class="social-links">
+                <a href="#" aria-label="Travelscope on Facebook">
+                    <i class="fa-brands fa-facebook-f"></i>
+                </a>
+                <a href="#" aria-label="Travelscope on Twitter">
+                    <i class="fa-brands fa-x-twitter"></i>
+                </a>
+                <a href="#" aria-label="Travelscope on Instagram">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+                <a href="#" aria-label="Travelscope on LinkedIn">
+                    <i class="fa-brands fa-linkedin-in"></i>
+                </a>
+            </div>
+    </div>
+
+    <div class="footer-bottom">
+      © 2026 TravelScope. All rights reserved.
+    </div>
+  </footer>
+  <div id="chatbot">
+
+<div id="chatbot-header">
+🌍 TravelScope AI
+</div>
+
+<div id="chatbot-messages"></div>
+
+<div id="chatbot-input">
+
+<input type="text" id="userInput" placeholder="Ask about tourism..." />
+
+<button onclick="sendMessage()">Send</button>
+
+</div>
+
+</div>
+
+<button id="chatbot-toggle" onclick="toggleChatbot()">
+💬
+</button>
+
+  <!-- External JS -->
+<script src="script.js"></script>
+  <script src="chatbot-utils.js"></script>
+  <script src="chatbot.js"></script>
+  <script>
+
+document.addEventListener("DOMContentLoaded", function(){
+
+const authArea = document.getElementById("authArea");
+
+if(localStorage.getItem("isLoggedIn")==="true"){
+
+const user = JSON.parse(localStorage.getItem("travelscope_user"));
+
+// Keep the existing nav links and add profile icon on the right
+authArea.innerHTML = `
+
+<a href="index.html">Home</a>
+
+<a href="dashboard.html">Dashboard</a>
+
+<a href="ai-insights.html">AI Insights</a>
+
+<a href="email-reports.html">Email Reports</a>
+
+<button onclick="toggleMode()">🌙 / ☀️</button>
+
+<div class="profile-wrapper">
+
+<i class="fa fa-user-circle profile-icon" id="profileIcon"></i>
+
+<div id="profileDetails" class="profile-details">
+
+<p><strong>Name:</strong> ${user.name}</p>
+<p><strong>Email:</strong> ${user.email}</p>
+<p><strong>Contact:</strong> ${user.contact}</p>
+
+<button onclick="logout()">Logout</button>
+
+</div>
+
+</div>
+
+`;
+
+const profileIcon = document.getElementById("profileIcon");
+const profileDetails = document.getElementById("profileDetails");
+
+profileDetails.style.display = "none";
+
+profileIcon.addEventListener("click", function(){
+
+if(profileDetails.style.display === "none"){
+profileDetails.style.display = "block";
+}else{
+profileDetails.style.display = "none";
+}
+
+});
+
+}
+
+});
+
+function logout(){
+
+localStorage.removeItem("isLoggedIn");
+
+window.location.href="index.html";
+
+}
+  </script>
+</body>
+</html>
