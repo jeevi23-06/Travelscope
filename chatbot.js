@@ -375,3 +375,12 @@ document.getElementById("userInput").addEventListener("keypress", function (e) {
     sendMessage();
   }
 });
+
+// Ensure chatbot starts closed
+document.addEventListener("DOMContentLoaded", function() {
+  const bot = document.getElementById("chatbot");
+  if (bot) {
+    bot.style.display = "none";
+  }
+});
+
